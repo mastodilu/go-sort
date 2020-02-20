@@ -15,5 +15,20 @@ func Sort(slice *[]comparable.Comparable) error {
 	if len(*items) < 2 {
 		return nil
 	}
-	return fmt.Errorf("bubblesort.Sort() method not implemented yet")
+	return bubblesort()
+}
+
+func bubblesort() error {
+	// for i := 0; i < len(*items-1); i++ {
+
+	// }
+	return fmt.Errorf("method not implemented yet")
+}
+
+// swap swaps the content of the items at the two indexes
+func swap(i, j int) {
+	temp := (*items)[i]
+	(*items)[i] = (*items)[j]
+	(*items)[j] = temp
+
 }
