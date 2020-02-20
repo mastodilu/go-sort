@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/mastodilu/go-sort/comparable"
 	"github.com/mastodilu/go-sort/comparableint"
 )
 
@@ -40,7 +41,7 @@ func CreateNumbers(filePath string, howmany int) error {
 }
 
 // ReadNumbersFromFile read a file with numbers on each record
-func ReadNumbersFromFile(filepath string) (*[]comparableint.ComparableInt, error) {
+func ReadNumbersFromFile(filepath string) (*[]comparable.Comparable, error) {
 	// open file
 	file, err := os.Open(filepath)
 	if err != nil {
@@ -49,7 +50,7 @@ func ReadNumbersFromFile(filepath string) (*[]comparableint.ComparableInt, error
 	defer file.Close()
 
 	// create slice of numbers to compare
-	var numbers []comparableint.ComparableInt
+	var numbers []comparable.Comparable
 
 	fmt.Printf("Reading %s\n", file.Name())
 	reader := bufio.NewScanner(file)
@@ -81,4 +82,18 @@ func ReadNumbersFromFile(filepath string) (*[]comparableint.ComparableInt, error
 		}
 	}
 	return &numbers, nil
+}
+
+// CheckSorted checks that the slice is sorted in ascending order
+func CheckSorted(slice *[]comparable.Comparable) error {
+	for i := 0; i < len(*slice)-1; i++ {
+		if !(*slice)[i].Less((*slice)[i+1]) && !(*slice)[i].Equals((*slice)[i+1]) {
+			return fmt.Errorf(
+				"[%d] %v is greater than [%d] %v",
+				i, (*slice)[i],
+				i+1, (*slice)[i+1],
+			)
+		}
+	}
+	return nil
 }
