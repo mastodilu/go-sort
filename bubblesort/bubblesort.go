@@ -1,8 +1,6 @@
 package bubblesort
 
 import (
-	"fmt"
-
 	"github.com/mastodilu/go-sort/comparable"
 )
 
@@ -10,19 +8,40 @@ import (
 var items *[]comparable.Comparable
 
 // Sort sorts the given slice of Comparable using bubblesort algorithms
-func Sort(slice *[]comparable.Comparable) error {
+func Sort(slice *[]comparable.Comparable) {
 	items = slice
+
+	// len < 2: already sorted
 	if len(*items) < 2 {
-		return nil
+		return
 	}
-	return bubblesort()
+
+	// len >= 2
+	bubblesort()
 }
 
-func bubblesort() error {
-	// for i := 0; i < len(*items-1); i++ {
+func bubblesort() {
+	// index of the first item to the right that must be sorted
+	//                          last
+	//                           ⬇
+	// X X X X X X X X X X  ...  2 8 9
+	last := len(*items) - 1
 
-	// }
-	return fmt.Errorf("method not implemented yet")
+	for last > 0 {
+		swapped := false
+		for i := 0; i < last; i++ {
+			if (*items)[i+1].Less((*items)[i]) {
+				swap(i, i+1)
+				swapped = true
+			}
+		}
+		last--
+		
+		// can stop when the the slice is sorted: when after a complete visit no swap is done
+		if !swapped {
+			return
+		}
+	}
 }
 
 // swap swaps the content of the items at the two indexes
