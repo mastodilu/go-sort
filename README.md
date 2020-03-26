@@ -2,8 +2,6 @@
 
 Sorting algorithms implemented in Go for educational purpose.
 
-## Bubble sort example
-
 Create a file with one number on each row.
 
 ```go
@@ -26,13 +24,27 @@ if err != nil {
 
 Finally sort the slice.
 
-```go
-fmt.Printf("%d numbers to sort\n", len(*numbers))
+## Bubble sort example
 
+```go
 fmt.Println("Starting bubblesort")
 bubblesort.Sort(numbers)
+```
 
-fmt.Println("Done, start checking")
+## Insertion sort example
+
+```go
+fmt.Println("Starting insertion sort")
+insertionsort.Sort(numbers)
+```
+
+---
+
+## Check for errors after the sorting algorithm
+
+```go
+fmt.Println("Done, now checking for errors")
+
 err = utils.CheckSorted(numbers)
 if err != nil {
     log.Fatalln(err)
