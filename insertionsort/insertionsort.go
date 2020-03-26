@@ -1,6 +1,8 @@
 package insertionsort
 
 import (
+	"log"
+
 	"github.com/mastodilu/go-sort/comparable"
 )
 
@@ -33,28 +35,14 @@ func insert(index int) {
 // insertAndShift inserts the item at index 'right'
 // before the item at index 'left'
 func insertAndShift(left, right int) {
+	if left > right {
+		log.Fatalf("error: left > right (%v > %v)\n", left, right)
+	}
+
 	temp := (*items)[right]
 
-	// remove the item we want to insert from its original position
-	*items = append(
-		(*items)[0:right],
-		(*items)[right+1:]...,
-	)
-
-	if left == 0 {
-		// insert before the first item
-		*items = append(
-			[]comparable.Comparable{temp},
-			*items...,
-		)
-	} else {
-		// insert in the middle
-		*items = append(
-			(*items)[:left], // the LEFT part of the slice
-			append(
-				[]comparable.Comparable{temp}, // the ITEM to insert
-				(*items)[left:]...,            // the RIGHT part of the array
-			)...,
-		)
+	for i := right; i > left; i-- {
+		(*items)[i] = (*items)[i-1]
 	}
+	(*items)[left] = temp
 }
