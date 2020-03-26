@@ -12,7 +12,7 @@ if err := utils.CreateNumbers(path, 50000); err != nil {
 }
 ```
 
-Then create a slice of items that implements the `Comparable` interface.
+Then create a slice of items that implement the `Comparable` interface.
 
 ```go
 // read file of numbers
