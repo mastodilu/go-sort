@@ -38,6 +38,13 @@ fmt.Println("Starting insertion sort")
 insertionsort.Sort(numbers)
 ```
 
+## Merge sort example
+
+```go
+fmt.Println("Starting merge sort")
+mergesort.Sort(numbers)
+```
+
 ---
 
 ## Check for errors after the sorting algorithm
